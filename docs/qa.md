@@ -30,6 +30,10 @@ Using the browser’s native input interaction, the dialog filtered the query **
 
 The filtered dialog result was activated and routed to `/platforms/bodhi`, after which the dialog was removed from the page. The explicit close control was then tested separately: it was found, activated, and reduced the dialog count to zero. The search dialog workflow is therefore verified from opening and focus through query filtering, routed result activation, and explicit close behavior.
 
+## Header Follow-up
+
+The desktop navigation follow-up corrected the Customers link’s vertical alignment by applying the same full-height inline-flex alignment used by menu controls. A fresh-page interaction check also confirmed the Solutions mega menu opens on the **first** activation: it returned `aria-expanded="true"`, rendered the mega menu, and exposed seven nested links.
+
 ## Automated Verification
 
 | Check | Result |

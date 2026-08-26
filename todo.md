@@ -21,5 +21,10 @@
 - [x] Verify a mobile navigation link closes the drawer and navigates to its destination, then record the outcome.
 - [x] Verify search-dialog result navigation and close behavior end to end, then record the outcome.
 - [x] Document reference, asset, and hosting limitations; save a final project checkpoint and deliver the work.
-- [ ] Save the validated project as a final checkpoint.
-- [ ] Deliver the completed project with implementation notes, QA summary, and limitations.
+- [x] Save the validated project as a final checkpoint.
+- [x] Deliver the completed project with implementation notes, QA summary, and limitations.
+- [x] Align the desktop Customers navigation tab with the other header items.
+- [x] Make desktop navigation menus open reliably on the first click.
+- [x] Verify the header layout and menu activation fix.
+- [ ] Save the header fixes as a checkpoint.
+- [ ] Report the completed fixes and technology stack to the user.

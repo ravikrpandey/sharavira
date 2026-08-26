@@ -123,7 +123,7 @@ function Header() {
           <BrandMark />
           <nav className={styles.desktopNav} aria-label="Primary navigation">
             {navGroups.map((group) => group.items ? (
-              <div key={group.label} className={styles.navMenu} onFocus={() => setOpenGroup(group.label)}>
+              <div key={group.label} className={styles.navMenu}>
                 <button type="button" className={styles.navTrigger} aria-expanded={openGroup === group.label} onClick={() => setOpenGroup((current) => current === group.label ? null : group.label)}>
                   {group.label}<ChevronDown size={14} aria-hidden="true" />
                 </button>

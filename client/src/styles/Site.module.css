@@ -14,7 +14,7 @@
 .brand strong { color:var(--red); font-weight:700; }
 .desktopNav { display:flex; gap:20px; align-items:stretch; flex:1; height:100%; }
 .navMenu { display:flex; align-items:center; }
-.navTrigger,.navLink { color:var(--ink); border:0; background:none; font:inherit; font-size:13px; font-weight:560; padding:10px 0; cursor:pointer; position:relative; white-space:nowrap; }
+.navTrigger,.navLink { min-height:100%; display:inline-flex; align-items:center; color:var(--ink); border:0; background:none; font:inherit; font-size:13px; font-weight:560; padding:10px 0; cursor:pointer; position:relative; white-space:nowrap; }
 .navTrigger { display:inline-flex; gap:4px; align-items:center; }
 .navTrigger:after,.navLink:after { content:""; position:absolute; left:0; right:0; bottom:3px; height:1.5px; background:var(--red); transform:scaleX(0); transform-origin:left; transition:transform .2s var(--ease-out); }
 .navTrigger:hover:after,.navTrigger:focus-visible:after,.navLink:hover:after,.navLinkActive:after { transform:scaleX(1); }
