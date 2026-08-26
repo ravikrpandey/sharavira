@@ -38,5 +38,9 @@
 - [x] Deliver the React warning fix to the user.
 - [x] Correct the inquiry form required-asterisk placement beside each mandatory label.
 - [x] Verify the required indicators on desktop and mobile.
-- [ ] Save the inquiry-form indicator fix as a checkpoint.
-- [ ] Deliver the required-indicator fix to the user.
+- [x] Save the inquiry-form indicator fix as a checkpoint.
+- [x] Deliver the required-indicator fix to the user.
+- [x] Make required markers and the mandatory-fields guidance visible in the inquiry form’s untouched default state.
+- [x] Verify default-state form visibility on desktop and mobile.
+- [ ] Save the default-state form visibility fix as a checkpoint.
+- [ ] Deliver the default-state form visibility fix to the user.

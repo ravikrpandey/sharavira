@@ -44,6 +44,12 @@ The close control was also verified: it removed the mobile navigation region and
 
 The missing key on the non-group mobile navigation link was corrected. A fresh page render followed by mobile-header rendering produced the complete mobile navigation with 29 links and no React list-key warning in the active browser console output.
 
+## Required Guidance Default-State Follow-up
+
+The untouched contact form was inspected after the user reported that the mandatory-fields guidance appeared only after interaction. The guidance text existed in the DOM and occupied its layout area, but inherited white 16px text rather than the intended muted 10px form-note style. That made the text invisible against the form’s white card while leaving the red asterisk visible.
+
+The contact-page rule was corrected with a more specific form-note selector. On a fresh, untouched form render, the mandatory guidance is now visibly rendered as `rgb(102, 100, 94)` at 10px, while the required asterisks remain red beside their respective labels.
+
 ## Automated Verification
 
 | Check | Result |
