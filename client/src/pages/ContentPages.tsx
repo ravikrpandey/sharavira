@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ChevronDown, Compass, ExternalLink, MapPin, Search, Send } from "lucide-react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ContactForm } from "@/components/ContactForm";
+import { hasExternalPublicApi, postToPublicApi } from "@/lib/publicApi";
 import { trpc } from "@/lib/trpc";
 import { applyPageMeta } from "@/lib/seo";
 import { findPage, findResource, findStory, locations, pages, resources, stories, type PageEntity } from "@/data/site";
@@ -95,10 +96,10 @@ export function ResourcesPage({ demoLibrary = false }: { demoLibrary?: boolean }
 }
 
 function NewsletterForm() {
-  const [email, setEmail] = useState(""); const [state, setState] = useState<"idle" | "success" | "error" | "duplicate">("idle");
+  const [email, setEmail] = useState(""); const [state, setState] = useState<"idle" | "sending" | "success" | "error" | "duplicate">("idle");
   const subscribe = trpc.site.newsletter.useMutation();
-  const submit = async (event: FormEvent) => { event.preventDefault(); if (!/^\S+@\S+\.\S+$/.test(email)) { setState("error"); return; } const duplicateKey = `ascend-newsletter-${email.toLowerCase()}`; if (window.sessionStorage.getItem(duplicateKey)) { setState("duplicate"); return; } try { await subscribe.mutateAsync({ email, idempotencyKey: crypto.randomUUID() }); window.sessionStorage.setItem(duplicateKey, "1"); setState("success"); setEmail(""); } catch (error) { setState(error instanceof Error && /already received|duplicate/i.test(error.message) ? "duplicate" : "error"); } };
-  return <form className={styles.newsletterForm} onSubmit={submit} noValidate><label><span className="sr-only">Email address</span><input value={email} onChange={(event) => { setEmail(event.target.value); if (state !== "idle") setState("idle"); }} placeholder="Email address" inputMode="email" /></label><button type="submit" disabled={subscribe.isPending}>{subscribe.isPending ? "Subscribing" : <>Subscribe <Send size={15} aria-hidden="true" /></>}</button>{state === "success" && <p role="status">You are on the list.</p>}{state === "duplicate" && <p role="status">This email is already subscribed.</p>}{state === "error" && <p role="alert">Enter a valid email address or try again.</p>}</form>;
+  const submit = async (event: FormEvent) => { event.preventDefault(); if (!/^\S+@\S+\.\S+$/.test(email)) { setState("error"); return; } const duplicateKey = `ascend-newsletter-${email.toLowerCase()}`; if (window.sessionStorage.getItem(duplicateKey)) { setState("duplicate"); return; } setState("sending"); try { const idempotencyKey = crypto.randomUUID(); if (hasExternalPublicApi()) { await postToPublicApi("/newsletter", { email }, idempotencyKey); } else { await subscribe.mutateAsync({ email, idempotencyKey }); } window.sessionStorage.setItem(duplicateKey, "1"); setState("success"); setEmail(""); } catch (error) { setState(error instanceof Error && /already received|duplicate/i.test(error.message) ? "duplicate" : "error"); } };
+  return <form className={styles.newsletterForm} onSubmit={submit} noValidate><label><span className="sr-only">Email address</span><input value={email} onChange={(event) => { setEmail(event.target.value); if (state !== "idle") setState("idle"); }} placeholder="Email address" inputMode="email" /></label><button type="submit" disabled={state === "sending" || subscribe.isPending}>{state === "sending" || subscribe.isPending ? "Subscribing" : <>Subscribe <Send size={15} aria-hidden="true" /></>}</button>{state === "success" && <p role="status">You are on the list.</p>}{state === "duplicate" && <p role="status">This email is already subscribed.</p>}{state === "error" && <p role="alert">Enter a valid email address or try again.</p>}</form>;
 }
 
 export function ResourceDetailPage() {

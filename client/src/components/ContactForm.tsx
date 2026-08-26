@@ -2,6 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
 import { contactReasons } from "@/data/site";
 import { validateContact } from "@/lib/forms";
+import { hasExternalPublicApi, postToPublicApi } from "@/lib/publicApi";
 import { trpc } from "@/lib/trpc";
 import styles from "@/styles/Site.module.css";
 
@@ -28,7 +29,12 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     const duplicateKey = `ascend-contact-${form.email.toLowerCase()}-${form.reason}`;
     if (window.sessionStorage.getItem(duplicateKey)) { setError("We already received this inquiry in this session. We will be in touch shortly."); setStatus("error"); return; }
     try {
-      await contactMutation.mutateAsync({ ...form, marketingConsent: form.consent, idempotencyKey: submissionKey.current });
+      const payload = { ...form, marketingConsent: form.consent };
+      if (hasExternalPublicApi()) {
+        await postToPublicApi("/contact", payload, submissionKey.current);
+      } else {
+        await contactMutation.mutateAsync({ ...payload, idempotencyKey: submissionKey.current });
+      }
       window.sessionStorage.setItem(duplicateKey, "1"); submissionKey.current = crypto.randomUUID(); setStatus("success"); setForm(emptyForm);
     } catch (mutationError) {
       setError(mutationError instanceof Error ? mutationError.message : "We could not send your inquiry. Please try again."); setStatus("error");

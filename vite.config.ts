@@ -151,8 +151,10 @@ function vitePluginManusDebugCollector(): Plugin {
 }
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+const githubPagesBuild = process.env.VITE_GITHUB_PAGES === "true";
 
 export default defineConfig({
+  base: githubPagesBuild ? (process.env.VITE_GITHUB_PAGES_BASE ?? "/publicis-sapient-recreation/") : "/",
   plugins,
   resolve: {
     alias: {

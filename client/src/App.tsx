@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
 import SiteShell from "./components/SiteShell";
 import Home from "./pages/Home";
@@ -19,7 +19,8 @@ const PrivacyPage = lazy(() => import("./pages/ContentPages").then((module) => (
 const NotFound = lazy(() => import("./pages/ContentPages").then((module) => ({ default: module.NotFound })));
 
 function App() {
-  return <ErrorBoundary><BrowserRouter><SiteShell><Suspense fallback={<div style={{ minHeight: "60vh", display: "grid", placeItems: "center", fontSize: 13 }}>Loading the next perspective…</div>}><Routes>
+  const Router = import.meta.env.VITE_GITHUB_PAGES === "true" ? HashRouter : BrowserRouter;
+  return <ErrorBoundary><Router><SiteShell><Suspense fallback={<div style={{ minHeight: "60vh", display: "grid", placeItems: "center", fontSize: 13 }}>Loading the next perspective…</div>}><Routes>
     <Route path="/" element={<Home />} />
     <Route path="/platforms" element={<PlatformsOverview />} />
     <Route path="/solutions" element={<FamilyOverviewPage />} />
@@ -38,7 +39,7 @@ function App() {
     <Route path="/privacy" element={<PrivacyPage />} />
     <Route path="/:family/:slug" element={<EntityPage />} />
     <Route path="*" element={<NotFound />} />
-  </Routes></Suspense></SiteShell></BrowserRouter></ErrorBoundary>;
+  </Routes></Suspense></SiteShell></Router></ErrorBoundary>;
 }
 
 export default App;

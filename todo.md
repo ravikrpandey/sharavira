@@ -42,5 +42,10 @@
 - [x] Deliver the required-indicator fix to the user.
 - [x] Make required markers and the mandatory-fields guidance visible in the inquiry form’s untouched default state.
 - [x] Verify default-state form visibility on desktop and mobile.
-- [ ] Save the default-state form visibility fix as a checkpoint.
-- [ ] Deliver the default-state form visibility fix to the user.
+- [x] Save the default-state form visibility fix as a checkpoint.
+- [x] Deliver the default-state form visibility fix to the user.
+- [ ] Prepare a stack-organized GitHub repository layout and GitHub Pages deployment workflow.
+- [ ] Create a new GitHub repository in ravikrpandey’s account and push the complete source code.
+- [ ] Configure or document GitHub Pages publishing for the static front end.
+- [ ] Configure or document a free deployment path for the Go/PostgreSQL backend.
+- [ ] Verify the repository and deployment configuration, then save and deliver the outcome.
