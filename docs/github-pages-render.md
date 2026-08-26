@@ -2,6 +2,10 @@
 
 The repository is organized as a stack-oriented monorepo. The React/Vite front end lives in `client/`, the portable Go REST service lives in `backend/`, normalized PostgreSQL migrations live in `database/`, and deployment configuration lives at the repository root. GitHub Pages publishes the static front end while Render hosts the API and managed PostgreSQL database.
 
+## Publishing Status
+
+The public repository is available at `https://github.com/ravikrpandey/publicis-sapient-recreation`. The GitHub Pages workflow is committed and will publish after the source push completes. The free backend path remains a Render Blueprint import because creating a Render service requires a separate Render account session.
+
 ## GitHub Pages
 
 The `.github/workflows/deploy-pages.yml` workflow builds and deploys `dist/public` whenever `main` changes. It automatically uses hash-based client routing for static hosting, so all internal routes work without server rewrite rules.
