@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ArrowRight, ChevronDown, Menu, Pause, Play, Search, Sparkles, X } from "lucide-react";
 import { announcementItems, navGroups, pages, resources, stories } from "@/data/site";
@@ -97,6 +97,14 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const closeSearch = useCallback(() => setSearchOpen(false), []);
+  const toggleMobileNavigation = useCallback(() => setMobileOpen((value) => !value), []);
+  const handleMobilePointerUp = useCallback((event: ReactPointerEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    toggleMobileNavigation();
+  }, [toggleMobileNavigation]);
+  const handleMobileKeyboardClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    if (event.detail === 0) toggleMobileNavigation();
+  }, [toggleMobileNavigation]);
 
   useEffect(() => {
     const onEscape = (event: KeyboardEvent) => {
@@ -142,17 +150,17 @@ function Header() {
           <div className={styles.navActions}>
             <button type="button" className={styles.searchToggle} onClick={() => setSearchOpen(true)} aria-label="Open search"><Search size={19} aria-hidden="true" /></button>
             <Link className={styles.connectButton} to="/contact">Let&apos;s connect <ArrowRight size={15} aria-hidden="true" /></Link>
-            <button type="button" className={styles.mobileToggle} aria-label={mobileOpen ? "Close navigation" : "Open navigation"} aria-expanded={mobileOpen} onClick={() => setMobileOpen((value) => !value)}>{mobileOpen ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}</button>
+            <button type="button" className={styles.mobileToggle} aria-label={mobileOpen ? "Close navigation" : "Open navigation"} aria-expanded={mobileOpen} onPointerUp={handleMobilePointerUp} onClick={handleMobileKeyboardClick}>{mobileOpen ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}</button>
           </div>
         </div>
-        {mobileOpen && <div className={styles.mobilePanel}>
-          <div className={styles.mobilePanelTop}><BrandMark /><button type="button" className={styles.iconButton} onClick={() => setMobileOpen(false)} aria-label="Close navigation"><X size={20} aria-hidden="true" /></button></div>
-          <nav aria-label="Mobile navigation" className={styles.mobileNav}>
-            {navGroups.map((group) => group.items ? <details key={group.label}><summary>{group.label}<ChevronDown size={16} aria-hidden="true" /></summary><div>{group.items.map((item) => <Link onClick={() => setMobileOpen(false)} key={item.to} to={item.to}>{item.label}<ArrowRight size={15} aria-hidden="true" /></Link>)}{group.secondary?.items.map((item) => <Link onClick={() => setMobileOpen(false)} key={item.to} to={item.to}>{item.label}<ArrowRight size={15} aria-hidden="true" /></Link>)}</div></details> : <Link onClick={() => setMobileOpen(false)} to={group.to!}>{group.label}<ArrowRight size={15} aria-hidden="true" /></Link>)}
-          </nav>
-          <div className={styles.mobilePanelActions}><button type="button" onClick={() => { setSearchOpen(true); setMobileOpen(false); }}><Search size={17} aria-hidden="true" /> Search</button><Link onClick={() => setMobileOpen(false)} to="/contact">Let&apos;s connect <ArrowRight size={17} aria-hidden="true" /></Link></div>
-        </div>}
       </header>
+      {mobileOpen && <div className={styles.mobilePanel}>
+        <div className={styles.mobilePanelTop}><BrandMark /><button type="button" className={styles.iconButton} onClick={() => setMobileOpen(false)} aria-label="Close navigation"><X size={20} aria-hidden="true" /></button></div>
+        <nav aria-label="Mobile navigation" className={styles.mobileNav}>
+          {navGroups.map((group) => group.items ? <details key={group.label}><summary>{group.label}<ChevronDown size={16} aria-hidden="true" /></summary><div>{group.items.map((item) => <Link onClick={() => setMobileOpen(false)} key={item.to} to={item.to}>{item.label}<ArrowRight size={15} aria-hidden="true" /></Link>)}{group.secondary?.items.map((item) => <Link onClick={() => setMobileOpen(false)} key={item.to} to={item.to}>{item.label}<ArrowRight size={15} aria-hidden="true" /></Link>)}</div></details> : <Link onClick={() => setMobileOpen(false)} to={group.to!}>{group.label}<ArrowRight size={15} aria-hidden="true" /></Link>)}
+        </nav>
+        <div className={styles.mobilePanelActions}><button type="button" onClick={() => { setSearchOpen(true); setMobileOpen(false); }}><Search size={17} aria-hidden="true" /> Search</button><Link onClick={() => setMobileOpen(false)} to="/contact">Let&apos;s connect <ArrowRight size={17} aria-hidden="true" /></Link></div>
+      </div>}
       <SearchDialog open={searchOpen} onClose={closeSearch} />
     </>
   );

@@ -34,6 +34,12 @@ The filtered dialog result was activated and routed to `/platforms/bodhi`, after
 
 The desktop navigation follow-up corrected the Customers link’s vertical alignment by applying the same full-height inline-flex alignment used by menu controls. A fresh-page interaction check also confirmed the Solutions mega menu opens on the **first** activation: it returned `aria-expanded="true"`, rendered the mega menu, and exposed seven nested links.
 
+## Mobile Hamburger Follow-up
+
+The mobile drawer was moved outside the sticky-header stacking context and the hamburger now handles touch-style pointer release independently from keyboard activation. A fresh touch-style interaction check returned `aria-expanded="true"`, rendered the mobile navigation region and close control, and applied the body scroll lock. This verifies that the drawer opens on the initial mobile touch activation.
+
+The close control was also verified: it removed the mobile navigation region and released the body scroll lock. A subsequent touch-style activation reopened the drawer, and expanding its first group set the disclosure state to open and exposed seven nested links.
+
 ## Automated Verification
 
 | Check | Result |
