@@ -40,6 +40,10 @@ The mobile drawer was moved outside the sticky-header stacking context and the h
 
 The close control was also verified: it removed the mobile navigation region and released the body scroll lock. A subsequent touch-style activation reopened the drawer, and expanding its first group set the disclosure state to open and exposed seven nested links.
 
+## Header Key Warning Follow-up
+
+The missing key on the non-group mobile navigation link was corrected. A fresh page render followed by mobile-header rendering produced the complete mobile navigation with 29 links and no React list-key warning in the active browser console output.
+
 ## Automated Verification
 
 | Check | Result |

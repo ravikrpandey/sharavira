@@ -30,5 +30,9 @@
 - [x] Report the completed fixes and technology stack to the user.
 - [x] Diagnose and correct the mobile hamburger menu interaction.
 - [x] Verify the mobile drawer opens, exposes nested navigation, and closes correctly.
-- [ ] Save the mobile navigation fix as a checkpoint.
-- [ ] Deliver the mobile navigation fix to the user.
+- [x] Save the mobile navigation fix as a checkpoint.
+- [x] Deliver the mobile navigation fix to the user.
+- [x] Correct the Header navigation list-key warning.
+- [x] Verify the React warning is absent.
+- [ ] Save the Header key fix as a checkpoint.
+- [ ] Deliver the React warning fix to the user.
