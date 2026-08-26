@@ -49,3 +49,4 @@
 - [ ] Configure or document GitHub Pages publishing for the static front end.
 - [ ] Configure or document a free deployment path for the Go/PostgreSQL backend.
 - [ ] Verify the repository and deployment configuration, then save and deliver the outcome.
+- [ ] Resolve the GitHub Pages workflow’s pnpm-version conflict and verify a successful deployment run.
