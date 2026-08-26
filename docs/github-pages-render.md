@@ -4,17 +4,17 @@ The repository is organized as a stack-oriented monorepo. The React/Vite front e
 
 ## Publishing Status
 
-The public repository is available at `https://github.com/ravikrpandey/publicis-sapient-recreation`. The GitHub Pages workflow is committed and will publish after the source push completes. The free backend path remains a Render Blueprint import because creating a Render service requires a separate Render account session.
+The public repository is available at `https://github.com/ravikrpandey/publicis-sapient-recreation`. The static front end is live at `https://ravikrpandey.github.io/publicis-sapient-recreation/`; GitHub Actions workflow run 2 completed successfully from commit `20d59e9` on 27 August 2026. The free backend path remains a Render Blueprint import because the available browser session is not signed in to Render.
 
 ## GitHub Pages
 
 The `.github/workflows/deploy-pages.yml` workflow builds and deploys `dist/public` whenever `main` changes. It automatically uses hash-based client routing for static hosting, so all internal routes work without server rewrite rules.
 
-After the repository is pushed, open **Settings → Pages** in GitHub and select **GitHub Actions** as the publishing source. The site URL will be `https://ravikrpandey.github.io/publicis-sapient-recreation/`.
+GitHub Pages is configured to use **GitHub Actions** as its publishing source. The live site is available at `https://ravikrpandey.github.io/publicis-sapient-recreation/`.
 
 ## Render API and PostgreSQL
 
-The root `render.yaml` is a Render Blueprint. Import the repository at [Render](https://dashboard.render.com/blueprints), choose the free instance type, and create the blueprint. It provisions the Go API, a free Postgres database, and applies the checked-in schema migration before each API deploy.
+The root `render.yaml` is a Render Blueprint. After signing in to [Render](https://dashboard.render.com/blueprints), import the repository, choose the free instance type, and create the blueprint. It provisions the Go API, a free Postgres database, and applies the checked-in schema migration before each API deploy.
 
 When Render provides the API URL, for example `https://ascend-collective-api.onrender.com`, add a GitHub repository variable named `VITE_API_BASE_URL` with the value `https://ascend-collective-api.onrender.com/api/v1`, then rerun the **Deploy GitHub Pages** workflow. The published contact and newsletter forms will submit directly to the Go API using this value.
 
