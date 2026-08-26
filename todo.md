@@ -34,5 +34,9 @@
 - [x] Deliver the mobile navigation fix to the user.
 - [x] Correct the Header navigation list-key warning.
 - [x] Verify the React warning is absent.
-- [ ] Save the Header key fix as a checkpoint.
-- [ ] Deliver the React warning fix to the user.
+- [x] Save the Header key fix as a checkpoint.
+- [x] Deliver the React warning fix to the user.
+- [x] Correct the inquiry form required-asterisk placement beside each mandatory label.
+- [x] Verify the required indicators on desktop and mobile.
+- [ ] Save the inquiry-form indicator fix as a checkpoint.
+- [ ] Deliver the required-indicator fix to the user.
