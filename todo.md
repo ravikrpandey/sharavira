@@ -51,4 +51,7 @@
 - [ ] Verify the repository and deployment configuration, then save and deliver the outcome.
 - [x] Resolve the GitHub Pages workflow’s pnpm-version conflict and verify a successful deployment run.
 - [x] Verify that GitHub Pages serves the published front end at its public URL.
-- [ ] Deploy the Go API and PostgreSQL database after a Render account session is authorized.
+- [x] Deploy the Go API and PostgreSQL database after a Render account session is authorized.
+- [x] Verify the public Go API health endpoint after the Render deployment completes.
+- [ ] Configure the GitHub Actions `VITE_API_BASE_URL` repository variable and redeploy Pages to activate published form submissions.
+- [ ] Publish the live Render API fallback in the Pages workflow and verify the published form route.
