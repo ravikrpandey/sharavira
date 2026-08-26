@@ -4,7 +4,7 @@ The repository is organized as a stack-oriented monorepo. The React/Vite front e
 
 ## Publishing Status
 
-The public repository is available at `https://github.com/ravikrpandey/publicis-sapient-recreation`. The static front end is live at `https://ravikrpandey.github.io/publicis-sapient-recreation/`; GitHub Actions workflow run 2 completed successfully from commit `20d59e9` on 27 August 2026. The free backend path remains a Render Blueprint import because the available browser session is not signed in to Render.
+The public repository is available at `https://github.com/ravikrpandey/publicis-sapient-recreation`. The static front end is live at `https://ravikrpandey.github.io/publicis-sapient-recreation/`; GitHub Actions workflow run [33023964187](https://github.com/ravikrpandey/publicis-sapient-recreation/actions/runs/33023964187) completed successfully from commit `51f26e4` on 27 August 2026. The Go API is live at `https://ascend-collective-api.onrender.com`, and its `/healthz` endpoint returned HTTP 200 after deployment.
 
 ## GitHub Pages
 
@@ -14,15 +14,15 @@ GitHub Pages is configured to use **GitHub Actions** as its publishing source. T
 
 ## Render API and PostgreSQL
 
-The root `render.yaml` is a Render Blueprint. After signing in to [Render](https://dashboard.render.com/blueprints), import the repository, choose the free instance type, and create the blueprint. It provisions the Go API, a free Postgres database, and applies the checked-in schema migration before each API deploy.
+The root `render.yaml` is a reproducible Render Blueprint for the deployed free Go API and PostgreSQL database. The initial resources were provisioned in the `singapore` region and the checked-in migration was applied during the API deployment. The service is configured for automatic deployment from the `main` branch.
 
-When Render provides the API URL, for example `https://ascend-collective-api.onrender.com`, add a GitHub repository variable named `VITE_API_BASE_URL` with the value `https://ascend-collective-api.onrender.com/api/v1`, then rerun the **Deploy GitHub Pages** workflow. The published contact and newsletter forms will submit directly to the Go API using this value.
+The Pages workflow now defaults `VITE_API_BASE_URL` to `https://ascend-collective-api.onrender.com/api/v1`. A GitHub repository variable with the same name may override that value in a future environment. The deployed JavaScript bundle contains the live endpoint, and a CORS preflight from `https://ravikrpandey.github.io` to `/api/v1/contact` returned HTTP 204 with the expected allowed origin and methods. The published contact and newsletter forms therefore route directly to the Go API.
 
 > Render’s free web services can spin down after idle time, so the first API request after inactivity can take about a minute. Free Render Postgres is appropriate for a preview or hobby deployment and expires after 30 days; review the current Render terms before relying on it for production data.
 
 ## Verification
 
-The GitHub Actions workflow is the source of truth for the static deployment. The backend health endpoint is available at `/healthz` after Render finishes its deploy. The service must return `{"ok":true}` before setting `VITE_API_BASE_URL` in GitHub.
+The GitHub Actions workflow is the source of truth for the static deployment. The final workflow run completed successfully, the public Pages HTML referenced a bundle containing the live API URL, and the API health endpoint returned HTTP 200. These checks validate the static deployment, API reachability, and browser-origin routing without creating test submissions in the production contact database.
 
 ## References
 

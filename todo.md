@@ -53,5 +53,6 @@
 - [x] Verify that GitHub Pages serves the published front end at its public URL.
 - [x] Deploy the Go API and PostgreSQL database after a Render account session is authorized.
 - [x] Verify the public Go API health endpoint after the Render deployment completes.
-- [ ] Configure the GitHub Actions `VITE_API_BASE_URL` repository variable and redeploy Pages to activate published form submissions.
-- [ ] Publish the live Render API fallback in the Pages workflow and verify the published form route.
+- [x] Configure the GitHub Pages build with a live `VITE_API_BASE_URL` fallback and redeploy Pages to activate published form submissions.
+- [x] Publish the live Render API fallback in the Pages workflow and verify the published API route and CORS behavior.
+- [ ] Publish the final live-deployment documentation and deliver the verified repository, frontend, and backend URLs.

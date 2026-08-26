@@ -6,6 +6,10 @@ This repository contains an independently authored, enterprise-style public webs
 
 The interactive application uses React, Vite, React Router and CSS Modules. The current managed preview demonstrates the complete front-end route experience and accessible form states. A portable Go REST API with PostgreSQL is included in `backend/` for the requested full-stack deployment model. See [`docs/architecture.md`](docs/architecture.md), [`docs/api.md`](docs/api.md), [`docs/database.md`](docs/database.md), [`docs/frontend.md`](docs/frontend.md), and [`docs/deployment.md`](docs/deployment.md) for implementation details.
 
+## Published Front End
+
+The stack-organized source repository is available at [ravikrpandey/publicis-sapient-recreation](https://github.com/ravikrpandey/publicis-sapient-recreation). The static React application is live on [GitHub Pages](https://ravikrpandey.github.io/publicis-sapient-recreation/), and the Go/PostgreSQL API is live on [Render](https://ascend-collective-api.onrender.com/healthz). The GitHub Pages build is configured to route published contact and newsletter requests to the Render API; see [`docs/github-pages-render.md`](docs/github-pages-render.md) for topology, verification, and free-tier operational notes.
+
 ## Local development
 
 Install JavaScript dependencies and start the front-end development server with:
