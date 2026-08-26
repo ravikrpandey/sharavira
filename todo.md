@@ -1,0 +1,25 @@
+# Project TODO
+
+- [x] Create and document the live-site route, component, content, interaction, and responsive-behavior inventory.
+- [x] Establish independent visual direction, design tokens, page architecture, and SEO metadata approach.
+- [x] Build a sticky responsive header with accessible desktop mega menus and mobile navigation.
+- [x] Implement global search, privacy/cookie affordance, reduced-motion-aware motion, and shared footer.
+- [x] Recreate the full enterprise-AI homepage with trust, expertise, platform, results, resources, and contact sections.
+- [x] Implement composed public route families for solutions, industries, platforms, capabilities, customers, resources, company, careers handoff, and contact.
+- [x] Create structured site content and reusable accessible UI components with functional internal links.
+- [x] Add Go REST API source code with handler-service-repository layering, validation, rate limiting, CORS, and secure headers.
+- [x] Add PostgreSQL schema, migrations, normalized content/contact/newsletter/location tables, indexes, and constraints.
+- [x] Implement validated contact and newsletter experiences with loading, success, failure, and duplicate-submission states.
+- [x] Add Docker, Docker Compose, documented environment settings, and professional architecture, API, database, and deployment documentation.
+- [x] Add frontend and backend tests, then verify build, routes, interactions, and responsive presentation.
+- [x] Implement page-level SEO metadata with descriptions, canonical URLs, and social metadata support.
+- [x] Add explicit newsletter duplicate-submission handling in the client and portable API flow.
+- [x] Verify navigation, search, and form interactions and record the QA outcome.
+- [x] Verify desktop mega-menu and mobile-navigation interactions end to end, then record results in the QA log.
+- [x] Verify the search trigger/dialog interaction end to end and document the result.
+- [x] Verify a desktop mega-menu link opens and navigates to its destination, then record the outcome.
+- [x] Verify a mobile navigation link closes the drawer and navigates to its destination, then record the outcome.
+- [x] Verify search-dialog result navigation and close behavior end to end, then record the outcome.
+- [x] Document reference, asset, and hosting limitations; save a final project checkpoint and deliver the work.
+- [ ] Save the validated project as a final checkpoint.
+- [ ] Deliver the completed project with implementation notes, QA summary, and limitations.
