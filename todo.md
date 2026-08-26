@@ -44,9 +44,14 @@
 - [x] Verify default-state form visibility on desktop and mobile.
 - [x] Save the default-state form visibility fix as a checkpoint.
 - [x] Deliver the default-state form visibility fix to the user.
-- [ ] Prepare a stack-organized GitHub repository layout and GitHub Pages deployment workflow.
-- [ ] Create a new GitHub repository in ravikrpandey’s account and push the complete source code.
-- [ ] Configure or document GitHub Pages publishing for the static front end.
-- [ ] Configure or document a free deployment path for the Go/PostgreSQL backend.
+- [x] Prepare a stack-organized GitHub repository layout and GitHub Pages deployment workflow.
+- [x] Create a new GitHub repository in ravikrpandey’s account and push the complete source code.
+- [x] Configure or document GitHub Pages publishing for the static front end.
+- [x] Configure or document a free deployment path for the Go/PostgreSQL backend.
 - [ ] Verify the repository and deployment configuration, then save and deliver the outcome.
-- [ ] Resolve the GitHub Pages workflow’s pnpm-version conflict and verify a successful deployment run.
+- [x] Resolve the GitHub Pages workflow’s pnpm-version conflict and verify a successful deployment run.
+- [x] Verify that GitHub Pages serves the published front end at its public URL.
+- [x] Deploy the Go API and PostgreSQL database after a Render account session is authorized.
+- [x] Verify the public Go API health endpoint after the Render deployment completes.
+- [ ] Configure the GitHub Actions `VITE_API_BASE_URL` repository variable and redeploy Pages to activate published form submissions.
+- [ ] Publish the live Render API fallback in the Pages workflow and verify the published form route.
