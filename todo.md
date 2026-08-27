@@ -76,5 +76,6 @@
 - [x] Make each footer navigation link open its related page at the top, including on mobile.
 - [x] Remove the Careers footer link and all related footer copy.
 - [x] Replace the Ascend Collective brand with Sharavira Technology throughout the public frontend.
-- [ ] Rename the GitHub repository to sharavira and align the GitHub Pages build base URL.
-- [ ] Verify mobile footer navigation, responsive branding, and the production build after the rename.
+- [x] Rename the GitHub repository to sharavira and align the GitHub Pages build base URL.
+- [x] Publish the Sharavira source update to the renamed repository and activate GitHub Pages.
+- [x] Verify a mobile footer link opens its destination page at the top in a real mobile browser viewport, then record the post-rename QA result.

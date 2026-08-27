@@ -22,7 +22,7 @@ End-to-end route activation was verified for both navigation patterns. The deskt
 
 The search control was also exercised directly against the rendered DOM. It was found successfully, but no search overlay or dialog input appeared after activation. This diagnostic result identifies an interaction defect to correct before the final checkpoint; the route-level search page remains functional.
 
-The dialog implementation was corrected by stabilizing the close callback passed from the header, preventing the dialog’s route-cleanup effect from running on every header render. The refreshed preview passed the focused post-fix check: after allowing the React event update to settle, the page exposed one dialog with the accessible label **“Search Ascend Collective”**, and focus moved to the search input with the placeholder **“Search topics, platforms or perspectives.”**
+The dialog implementation was corrected by stabilizing the close callback passed from the header, preventing the dialog’s route-cleanup effect from running on every header render. The refreshed preview passed the focused post-fix check: after allowing the React event update to settle, the page exposed one dialog with the accessible label **“Search Sharavira Technology”**, and focus moved to the search input with the placeholder **“Search topics, platforms or perspectives.”**
 
 An initial scripted search-input probe did not update React-controlled state, leaving the dialog’s six default results visible. The result confirms the dialog itself remains open and populated; final query-and-result navigation is being checked with a native input event rather than a direct DOM-value mutation.
 
@@ -39,6 +39,10 @@ The desktop navigation follow-up corrected the Customers link’s vertical align
 The mobile drawer was moved outside the sticky-header stacking context and the hamburger now handles touch-style pointer release independently from keyboard activation. A fresh touch-style interaction check returned `aria-expanded="true"`, rendered the mobile navigation region and close control, and applied the body scroll lock. This verifies that the drawer opens on the initial mobile touch activation.
 
 The close control was also verified: it removed the mobile navigation region and released the body scroll lock. A subsequent touch-style activation reopened the drawer, and expanding its first group set the disclosure state to open and exposed seven nested links.
+
+## Sharavira Footer Navigation Follow-up
+
+The renamed live site, `https://ravikrpandey.github.io/sharavira/`, was checked in a 375 × 812 mobile browser viewport. From the rendered footer on the Blog page, the **Demo library** link was activated and routed to `#/resources/demos`. The destination loaded with its **“Walk through the ideas behind context-first enterprise intelligence.”** heading at `scrollY: 0`, confirming that a footer destination opens at the beginning of its page. The same behavior is protected by the focused `ScrollToTop` regression test, which renders the actual shared footer at the mobile width.
 
 ## Header Key Warning Follow-up
 

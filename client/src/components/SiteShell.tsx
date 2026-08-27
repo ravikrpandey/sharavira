@@ -1,4 +1,4 @@
-import { PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useState } from "react";
+import React, { PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ArrowRight, ChevronDown, Menu, Pause, Play, Search, Sparkles, X } from "lucide-react";
 import { announcementItems, navGroups, pages, resources, stories } from "@/data/site";
