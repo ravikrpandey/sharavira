@@ -2,7 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
 import { contactReasons } from "@/data/site";
 import { validateContact } from "@/lib/forms";
-import { hasExternalPublicApi, postToPublicApi } from "@/lib/publicApi";
+import { createPortableContactPayload, hasExternalPublicApi, postToPublicApi } from "@/lib/publicApi";
 import { trpc } from "@/lib/trpc";
 import styles from "@/styles/Site.module.css";
 
@@ -13,6 +13,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
   const [form, setForm] = useState<FormState>(emptyForm);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [error, setError] = useState("");
+  const [waitingForBackend, setWaitingForBackend] = useState(false);
   const submissionKey = useRef(crypto.randomUUID());
   const contactMutation = trpc.site.contact.useMutation();
   const set = (key: keyof FormState, value: string | boolean) => setForm((current) => ({ ...current, [key]: value }));
@@ -25,11 +26,12 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       setStatus("error");
       return;
     }
-    setError(""); setStatus("sending");
+    setError(""); setStatus("sending"); setWaitingForBackend(false);
     const duplicateKey = `ascend-contact-${form.email.toLowerCase()}-${form.reason}`;
     if (window.sessionStorage.getItem(duplicateKey)) { setError("We already received this inquiry in this session. We will be in touch shortly."); setStatus("error"); return; }
+    const wakeUpTimer = window.setTimeout(() => setWaitingForBackend(true), 900);
     try {
-      const payload = { ...form, marketingConsent: form.consent };
+      const payload = createPortableContactPayload(form);
       if (hasExternalPublicApi()) {
         await postToPublicApi("/contact", payload, submissionKey.current);
       } else {
@@ -38,6 +40,9 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       window.sessionStorage.setItem(duplicateKey, "1"); submissionKey.current = crypto.randomUUID(); setStatus("success"); setForm(emptyForm);
     } catch (mutationError) {
       setError(mutationError instanceof Error ? mutationError.message : "We could not send your inquiry. Please try again."); setStatus("error");
+    } finally {
+      window.clearTimeout(wakeUpTimer);
+      setWaitingForBackend(false);
     }
   };
 
@@ -50,6 +55,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     <label className={styles.fullLabel}>Tell us a little more <textarea value={form.message} onChange={(event) => set("message", event.target.value)} placeholder="A short note about your opportunity or challenge" rows={compact ? 3 : 5} /></label>
     <label className={styles.checkboxLabel}><input type="checkbox" checked={form.consent} onChange={(event) => set("consent", event.target.checked)} /><span>I would like to receive occasional perspectives and event updates. I can unsubscribe at any time.</span></label>
     {status === "error" && <p className={styles.formError} role="alert">{error}</p>}
+    {status === "sending" && waitingForBackend && <p className={styles.formWakeup} role="status"><LoaderCircle className={styles.spinning} size={15} aria-hidden="true" /> We’re waking the inquiry service. Your submission is still in progress—please keep this page open.</p>}
     <div className={styles.formSubmit}><p>Fields marked <span>*</span> are required. By submitting, you consent to a follow-up about this inquiry.</p><button type="submit" disabled={status === "sending" || contactMutation.isPending}>{status === "sending" ? <><LoaderCircle className={styles.spinning} size={16} aria-hidden="true" /> Sending</> : <>Submit inquiry <ArrowRight size={16} aria-hidden="true" /></>}</button></div>
   </form>;
 }
