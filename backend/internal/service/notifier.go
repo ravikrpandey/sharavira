@@ -3,6 +3,7 @@ package service
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"fmt"
 	"html/template"
 	"mime"
@@ -61,11 +62,56 @@ func (n *smtpInquiryNotifier) NotifyInquiry(ctx context.Context, inquiry model.C
 	if err != nil {
 		return err
 	}
-	auth := smtp.PlainAuth("", n.username, n.password, n.host)
-	if err := smtp.SendMail(net.JoinHostPort(n.host, n.port), auth, sender.Address, []string{recipient.Address}, message); err != nil {
+	if err := n.sendWithDeadline(ctx, sender.Address, recipient.Address, message); err != nil {
 		return fmt.Errorf("send inquiry notification: %w", err)
 	}
 	return nil
+}
+
+func (n *smtpInquiryNotifier) sendWithDeadline(ctx context.Context, from, to string, message []byte) error {
+	dialer := &net.Dialer{}
+	connection, err := dialer.DialContext(ctx, "tcp", net.JoinHostPort(n.host, n.port))
+	if err != nil {
+		return err
+	}
+	defer connection.Close()
+	if deadline, ok := ctx.Deadline(); ok {
+		if err := connection.SetDeadline(deadline); err != nil {
+			return err
+		}
+	}
+
+	client, err := smtp.NewClient(connection, n.host)
+	if err != nil {
+		return err
+	}
+	defer client.Close()
+	if ok, _ := client.Extension("STARTTLS"); !ok {
+		return fmt.Errorf("SMTP server does not advertise STARTTLS")
+	}
+	if err := client.StartTLS(&tls.Config{ServerName: n.host, MinVersion: tls.VersionTLS12}); err != nil {
+		return err
+	}
+	if err := client.Auth(smtp.PlainAuth("", n.username, n.password, n.host)); err != nil {
+		return err
+	}
+	if err := client.Mail(from); err != nil {
+		return err
+	}
+	if err := client.Rcpt(to); err != nil {
+		return err
+	}
+	writer, err := client.Data()
+	if err != nil {
+		return err
+	}
+	if _, err := writer.Write(message); err != nil {
+		return err
+	}
+	if err := writer.Close(); err != nil {
+		return err
+	}
+	return client.Quit()
 }
 
 func resolveSender(from, username string) (*mail.Address, error) {

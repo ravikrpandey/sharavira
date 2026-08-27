@@ -87,3 +87,4 @@
 - [ ] Adapt the enquiry-email notifier to the authorized Google delivery method.
 - [ ] Replace the provisional email notifier with Gmail SMTP delivery using a secure App Password.
 - [ ] Correct the production SMTP sender identity parsing failure and re-verify live email delivery.
+- [ ] Bound Gmail SMTP delivery with connection and command timeouts so an email outage cannot stall an accepted enquiry response.
