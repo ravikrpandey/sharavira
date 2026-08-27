@@ -65,3 +65,7 @@
 - [x] Verify a full valid contact submission through a production-equivalent API path and record the result.
 - [x] Verify the timer-driven contact and newsletter wake-up status visibility and reset behavior with mocked delayed requests.
 - [x] Verify a full valid contact request through the routed API contract without creating a production inquiry record.
+- [ ] Diagnose the live Render contact endpoint `INTERNAL_ERROR` response.
+- [ ] Ensure the contact-form failure message is visible and actionable on desktop and mobile.
+- [ ] Test the corrected production contact persistence path and error-state presentation.
+- [ ] Publish and verify the production contact reliability fix.

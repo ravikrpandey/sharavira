@@ -1,5 +1,5 @@
-import React, { FormEvent, useRef, useState } from "react";
-import { ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
+import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
 import { contactReasons } from "@/data/site";
 import { validateContact } from "@/lib/forms";
 import { cancelExternalApiWakeUp, createPortableContactPayload, hasExternalPublicApi, postToPublicApi, scheduleExternalApiWakeUp } from "@/lib/publicApi";
@@ -15,8 +15,10 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
   const [error, setError] = useState("");
   const [waitingForBackend, setWaitingForBackend] = useState(false);
   const submissionKey = useRef(crypto.randomUUID());
+	const errorRef = useRef<HTMLParagraphElement>(null);
   const contactMutation = trpc.site.contact.useMutation();
   const set = (key: keyof FormState, value: string | boolean) => setForm((current) => ({ ...current, [key]: value }));
+	useEffect(() => { if (status === "error") errorRef.current?.focus(); }, [status]);
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -54,7 +56,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     <div className={styles.formRow}><label><span className={styles.fieldLabel}>Country <span className={styles.requiredMarker} aria-hidden="true">*</span></span><select value={form.country} onChange={(event) => set("country", event.target.value)} required><option value="">Select a country</option><option>United States</option><option>United Kingdom</option><option>India</option><option>Singapore</option><option>Germany</option><option>Other</option></select></label><label><span className={styles.fieldLabel}>How can we help? <span className={styles.requiredMarker} aria-hidden="true">*</span></span><select value={form.reason} onChange={(event) => set("reason", event.target.value)} required><option value="">Select a reason</option>{contactReasons.map((reason) => <option key={reason}>{reason}</option>)}</select></label></div>
     <label className={styles.fullLabel}>Tell us a little more <textarea value={form.message} onChange={(event) => set("message", event.target.value)} placeholder="A short note about your opportunity or challenge" rows={compact ? 3 : 5} /></label>
     <label className={styles.checkboxLabel}><input type="checkbox" checked={form.consent} onChange={(event) => set("consent", event.target.checked)} /><span>I would like to receive occasional perspectives and event updates. I can unsubscribe at any time.</span></label>
-    {status === "error" && <p className={styles.formError} role="alert">{error}</p>}
+    {status === "error" && <p ref={errorRef} className={styles.formError} role="alert" aria-live="assertive" tabIndex={-1}><AlertCircle size={17} aria-hidden="true" /><span><strong>We couldn’t send your inquiry.</strong>{error}</span></p>}
     {status === "sending" && waitingForBackend && <p className={styles.formWakeup} role="status"><LoaderCircle className={styles.spinning} size={15} aria-hidden="true" /> We’re waking the inquiry service. Your submission is still in progress—please keep this page open.</p>}
     <div className={styles.formSubmit}><p>Fields marked <span>*</span> are required. By submitting, you consent to a follow-up about this inquiry.</p><button type="submit" disabled={status === "sending" || contactMutation.isPending}>{status === "sending" ? <><LoaderCircle className={styles.spinning} size={16} aria-hidden="true" /> Sending</> : <>Submit inquiry <ArrowRight size={16} aria-hidden="true" /></>}</button></div>
   </form>;

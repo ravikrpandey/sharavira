@@ -71,6 +71,9 @@ export async function postToPublicApi(path: string, payload: unknown, idempotenc
 
     const body = await response.json().catch(() => ({} as ApiFailure));
     if (!response.ok) {
+		if (response.status >= 500) {
+			throw new Error("The inquiry service is temporarily unavailable. Please try again in a moment.");
+		}
       throw new Error((body as ApiFailure).message ?? "We could not process your request. Please try again.");
     }
 

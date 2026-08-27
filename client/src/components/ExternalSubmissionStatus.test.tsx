@@ -81,4 +81,23 @@ describe("external submission wake-up status", () => {
     expect(screen.queryByText("Waking the subscription service")).toBeNull();
     expect(screen.getByText("You are on the list.")).toBeTruthy();
   });
+
+  it("renders and focuses a clear contact alert when the external service fails", async () => {
+    mocks.postToPublicApi.mockRejectedValueOnce(new Error("The inquiry service is temporarily unavailable. Please try again in a moment."));
+    const { container } = render(<ContactForm />);
+    const textboxes = screen.getAllByRole("textbox");
+    fireEvent.change(textboxes[0], { target: { value: "Ravi" } });
+    fireEvent.change(textboxes[1], { target: { value: "Pandey" } });
+    fireEvent.change(textboxes[2], { target: { value: "Ascend" } });
+    fireEvent.change(textboxes[3], { target: { value: "ravi@example.com" } });
+    fireEvent.change(screen.getAllByRole("combobox")[0], { target: { value: "India" } });
+    fireEvent.change(screen.getAllByRole("combobox")[1], { target: { value: "Explore enterprise AI" } });
+    fireEvent.submit(container.querySelector("form")!);
+
+    await act(async () => { await Promise.resolve(); });
+    const alert = screen.getByRole("alert");
+    expect(alert.textContent).toContain("We couldn’t send your inquiry.");
+    expect(alert.textContent).toContain("temporarily unavailable");
+    expect(document.activeElement).toBe(alert);
+  });
 });
