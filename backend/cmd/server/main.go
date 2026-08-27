@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/ascend-collective/public-site-api/internal/config"
+	"github.com/ascend-collective/public-site-api/internal/migration"
 	"github.com/ascend-collective/public-site-api/internal/repository"
 	"github.com/ascend-collective/public-site-api/internal/router"
 	"github.com/ascend-collective/public-site-api/internal/service"
@@ -17,6 +18,13 @@ import (
 
 func main() {
 	cfg := config.Load()
+	migrationCtx, cancelMigration := context.WithTimeout(context.Background(), 30*time.Second)
+	if err := migration.Apply(migrationCtx, cfg.DatabaseURL); err != nil {
+		cancelMigration()
+		log.Fatalf("database schema initialization failed: %v", err)
+	}
+	cancelMigration()
+	log.Println("database schema ready")
 	repo, err := repository.NewPostgres(cfg.DatabaseURL)
 	if err != nil {
 		log.Fatalf("database initialization failed: %v", err)
