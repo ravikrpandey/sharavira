@@ -30,7 +30,8 @@ func main() {
 		log.Fatalf("database initialization failed: %v", err)
 	}
 	defer repo.Close()
-	server := &http.Server{Addr: ":" + cfg.Port, Handler: router.New(service.New(repo), cfg), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: 60 * time.Second}
+	notifier := service.NewSMTPInquiryNotifier(cfg.SMTPHost, cfg.SMTPPort, cfg.SMTPUsername, cfg.SMTPPassword, cfg.InquiryEmailFrom, cfg.InquiryNotificationTo)
+	server := &http.Server{Addr: ":" + cfg.Port, Handler: router.New(service.NewWithNotifier(repo, notifier), cfg), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: 60 * time.Second}
 	go func() {
 		log.Printf("public site API listening on :%s", cfg.Port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {

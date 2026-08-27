@@ -79,3 +79,10 @@
 - [x] Rename the GitHub repository to sharavira and align the GitHub Pages build base URL.
 - [x] Publish the Sharavira source update to the renamed repository and activate GitHub Pages.
 - [x] Verify a mobile footer link opens its destination page at the top in a real mobile browser viewport, then record the post-rename QA result.
+- [ ] Send an owner email notification to pandeyravikumar181@gmail.com for each newly accepted enquiry.
+- [ ] Configure the production email sender and credential without exposing secrets in source control.
+- [ ] Test inquiry persistence, notification delivery behavior, and delivery-failure fallback.
+- [ ] Publish and verify the live enquiry-email notification update.
+- [ ] Inspect the Google Cloud soundewave project for an existing Gmail API sender configuration.
+- [ ] Adapt the enquiry-email notifier to the authorized Google delivery method.
+- [ ] Replace the provisional email notifier with Gmail SMTP delivery using a secure App Password.

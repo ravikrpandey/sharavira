@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/ascend-collective/public-site-api/internal/model"
 	"github.com/ascend-collective/public-site-api/internal/repository"
+	"log"
 	"net/mail"
 	"strings"
 	"time"
@@ -12,9 +13,18 @@ import (
 
 var ErrValidation = errors.New("validation failed")
 
-type Service struct{ store repository.Store }
+type Service struct {
+	store    repository.Store
+	notifier InquiryNotifier
+}
 
-func New(store repository.Store) *Service { return &Service{store: store} }
+func New(store repository.Store) *Service { return NewWithNotifier(store, noopInquiryNotifier{}) }
+func NewWithNotifier(store repository.Store, notifier InquiryNotifier) *Service {
+	if notifier == nil {
+		notifier = noopInquiryNotifier{}
+	}
+	return &Service{store: store, notifier: notifier}
+}
 func (s *Service) List(ctx context.Context, contentType string) ([]model.ContentItem, error) {
 	return s.store.ListContent(ctx, contentType)
 }
@@ -34,7 +44,15 @@ func (s *Service) SubmitContact(ctx context.Context, v model.ContactSubmission, 
 		return ErrValidation
 	}
 	v.CreatedAt = time.Now().UTC()
-	return s.store.CreateContact(ctx, v, key)
+	if err := s.store.CreateContact(ctx, v, key); err != nil {
+		return err
+	}
+	notificationCtx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
+	defer cancel()
+	if err := s.notifier.NotifyInquiry(notificationCtx, v, key); err != nil {
+		log.Printf("inquiry email notification failed after contact persistence: %v", err)
+	}
+	return nil
 }
 func (s *Service) Subscribe(ctx context.Context, email, key string) error {
 	email = strings.ToLower(strings.TrimSpace(email))
