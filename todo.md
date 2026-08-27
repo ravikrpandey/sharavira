@@ -56,3 +56,7 @@
 - [x] Configure the GitHub Pages build with a live `VITE_API_BASE_URL` fallback and redeploy Pages to activate published form submissions.
 - [x] Publish the live Render API fallback in the Pages workflow and verify the published API route and CORS behavior.
 - [x] Publish the final live-deployment documentation and deliver the verified repository, frontend, and backend URLs.
+- [ ] Diagnose and correct the deployed contact form’s invalid JSON body response.
+- [ ] Add an accessible backend wake-up loading state for external API submissions.
+- [ ] Test contact submission payload handling, failure recovery, and loading behavior.
+- [ ] Publish and verify the contact-form resiliency fixes on GitHub Pages and Render.

@@ -23,6 +23,7 @@ type ContactSubmission struct {
 	Country     string    `json:"country"`
 	Reason      string    `json:"reason"`
 	Message     string    `json:"message"`
+	Consent     bool      `json:"consent"`
 	MarketingOK bool      `json:"marketingConsent"`
 	CreatedAt   time.Time `json:"createdAt"`
 }
