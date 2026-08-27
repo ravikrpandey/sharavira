@@ -1,4 +1,4 @@
-import { PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useState } from "react";
+import React, { PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ArrowRight, ChevronDown, Menu, Pause, Play, Search, Sparkles, X } from "lucide-react";
 import { announcementItems, navGroups, pages, resources, stories } from "@/data/site";
@@ -14,9 +14,9 @@ const searchEntries = [
 
 function BrandMark() {
   return (
-    <Link to="/" className={styles.brand} aria-label="Ascend Collective home">
-      <span>ascend</span>
-      <strong>collective</strong>
+    <Link to="/" className={styles.brand} aria-label="Sharavira Technology home">
+      <span>sharavira</span>
+      <strong>technology</strong>
     </Link>
   );
 }
@@ -71,7 +71,7 @@ function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void })
   if (!open) return null;
   return (
     <div className={styles.dialogBackdrop} role="presentation" onMouseDown={onClose}>
-      <section className={styles.searchDialog} role="dialog" aria-modal="true" aria-label="Search Ascend Collective" onMouseDown={(event) => event.stopPropagation()}>
+      <section className={styles.searchDialog} role="dialog" aria-modal="true" aria-label="Search Sharavira Technology" onMouseDown={(event) => event.stopPropagation()}>
         <div className={styles.searchHeading}>
           <div><span className={styles.eyebrow}>Search</span><h2>What are you working through?</h2></div>
           <button type="button" className={styles.iconButton} onClick={onClose} aria-label="Close search"><X size={20} aria-hidden="true" /></button>
@@ -173,15 +173,15 @@ function Footer() {
       <div className={styles.footerBrand}><BrandMark /><p>Where people, products and practical intelligence shape the next enterprise move.</p><Link to="/contact" className={styles.footerCta}>Start a conversation <ArrowRight size={17} aria-hidden="true" /></Link></div>
       <div className={styles.footerGrid}>{footerGroups.map((group) => <div key={group.label}><h3>{group.label}</h3>{group.items!.slice(0, 6).map((item) => <Link key={item.to} to={item.to}>{item.label}</Link>)}</div>)}</div>
     </div>
-    <div className={styles.footerBottom}><span>© 2026 Ascend Collective. Independent demonstration experience.</span><div><Link to="/privacy">Privacy</Link><Link to="/privacy">Accessibility</Link><Link to="/privacy">Cookie settings</Link><a href="https://careers.publicissapient.com/" target="_blank" rel="noreferrer">Careers <ArrowRight size={12} aria-hidden="true" /></a></div></div>
+    <div className={styles.footerBottom}><span>© 2026 Sharavira Technology. Independent demonstration experience.</span><div><Link to="/privacy">Privacy</Link><Link to="/privacy">Accessibility</Link><Link to="/privacy">Cookie settings</Link></div></div>
   </footer>;
 }
 
 function CookieNotice() {
   const [visible, setVisible] = useState(false);
-  useEffect(() => setVisible(window.localStorage.getItem("ascend-cookie-choice") === null), []);
+  useEffect(() => setVisible(window.localStorage.getItem("sharavira-cookie-choice") === null), []);
   if (!visible) return null;
-  const choose = (value: string) => { window.localStorage.setItem("ascend-cookie-choice", value); setVisible(false); };
+  const choose = (value: string) => { window.localStorage.setItem("sharavira-cookie-choice", value); setVisible(false); };
   return <aside className={styles.cookieNotice} aria-label="Cookie preferences"><div><span className={styles.eyebrow}>Your preferences</span><p>We use a small local preference to remember your choice. This independent demo does not include behavioral advertising.</p></div><div><Link to="/privacy">Read privacy</Link><button type="button" className={styles.cookieSecondary} onClick={() => choose("essential")}>Essential only</button><button type="button" className={styles.cookiePrimary} onClick={() => choose("all")}>Accept</button></div></aside>;
 }
 

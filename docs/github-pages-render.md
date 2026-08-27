@@ -4,13 +4,13 @@ The repository is organized as a stack-oriented monorepo. The React/Vite front e
 
 ## Publishing Status
 
-The public repository is available at `https://github.com/ravikrpandey/publicis-sapient-recreation`. The static front end is live at `https://ravikrpandey.github.io/publicis-sapient-recreation/`; GitHub Actions workflow run [33023964187](https://github.com/ravikrpandey/publicis-sapient-recreation/actions/runs/33023964187) completed successfully from commit `51f26e4` on 27 August 2026. The Go API is live at `https://ascend-collective-api.onrender.com`, and its `/healthz` endpoint returned HTTP 200 after deployment.
+The public repository is available at `https://github.com/ravikrpandey/sharavira`. The static front end is published at `https://ravikrpandey.github.io/sharavira/`; the GitHub Actions workflow automatically deploys every push to `main`. The Go API is live at `https://ascend-collective-api.onrender.com`, and its `/healthz` endpoint returned HTTP 200 after deployment.
 
 ## GitHub Pages
 
 The `.github/workflows/deploy-pages.yml` workflow builds and deploys `dist/public` whenever `main` changes. It automatically uses hash-based client routing for static hosting, so all internal routes work without server rewrite rules.
 
-GitHub Pages is configured to use **GitHub Actions** as its publishing source. The live site is available at `https://ravikrpandey.github.io/publicis-sapient-recreation/`.
+GitHub Pages is configured to use **GitHub Actions** as its publishing source. The live site is available at `https://ravikrpandey.github.io/sharavira/`.
 
 ## Render API and PostgreSQL
 

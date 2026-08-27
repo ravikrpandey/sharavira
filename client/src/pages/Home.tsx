@@ -24,7 +24,7 @@ export default function Home() {
   const navigate = useNavigate();
   const issue = issues[activeIssue];
 
-  useEffect(() => { applyPageMeta({ title: "Enterprise intelligence for the next move", description: "Ascend Collective connects strategy, experience, engineering and intelligent systems so complex organizations can move with more confidence.", path: "/" }); }, []);
+  useEffect(() => { applyPageMeta({ title: "Enterprise intelligence for the next move", description: "Sharavira Technology connects strategy, experience, engineering and intelligent systems so complex organizations can move with more confidence.", path: "/" }); }, []);
 
   const submitSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -37,7 +37,7 @@ export default function Home() {
       <div className={styles.heroInner}>
         <div className={styles.heroEyebrow}><Sparkles size={14} aria-hidden="true" /> Context-first enterprise intelligence</div>
         <h1>Build what the enterprise needs <em>next.</em></h1>
-        <p>Ascend Collective brings strategy, experience, engineering and intelligent systems into the same conversation—so complex organizations can move with more confidence.</p>
+        <p>Sharavira Technology brings strategy, experience, engineering and intelligent systems into the same conversation—so complex organizations can move with more confidence.</p>
         <form className={styles.heroSearch} onSubmit={submitSearch}>
           <Command size={19} aria-hidden="true" />
           <input value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Search ideas and capabilities" placeholder="What are you working through?" />

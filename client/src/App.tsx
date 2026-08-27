@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { ScrollToTop } from "./components/ScrollToTop";
 import SiteShell from "./components/SiteShell";
 import Home from "./pages/Home";
 import "./index.css";
@@ -20,7 +21,7 @@ const NotFound = lazy(() => import("./pages/ContentPages").then((module) => ({ d
 
 function App() {
   const Router = import.meta.env.VITE_GITHUB_PAGES === "true" ? HashRouter : BrowserRouter;
-  return <ErrorBoundary><Router><SiteShell><Suspense fallback={<div style={{ minHeight: "60vh", display: "grid", placeItems: "center", fontSize: 13 }}>Loading the next perspective…</div>}><Routes>
+  return <ErrorBoundary><Router><ScrollToTop /><SiteShell><Suspense fallback={<div style={{ minHeight: "60vh", display: "grid", placeItems: "center", fontSize: 13 }}>Loading the next perspective…</div>}><Routes>
     <Route path="/" element={<Home />} />
     <Route path="/platforms" element={<PlatformsOverview />} />
     <Route path="/solutions" element={<FamilyOverviewPage />} />
