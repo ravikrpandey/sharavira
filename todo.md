@@ -69,3 +69,7 @@
 - [x] Ensure the contact-form failure message is visible and actionable on desktop and mobile.
 - [x] Test the corrected production contact persistence path with the user-approved labeled verification inquiry.
 - [x] Publish and verify the production contact reliability fix.
+- [x] Restore visible, readable confirmation copy in the contact success card.
+- [ ] Verify the contact success card text contrast on desktop and mobile.
+- [ ] Publish and verify the success-card readability fix.
+- [ ] Add rendered success-state coverage for the contact-page style cascade.
