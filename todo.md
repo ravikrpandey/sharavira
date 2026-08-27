@@ -56,7 +56,12 @@
 - [x] Configure the GitHub Pages build with a live `VITE_API_BASE_URL` fallback and redeploy Pages to activate published form submissions.
 - [x] Publish the live Render API fallback in the Pages workflow and verify the published API route and CORS behavior.
 - [x] Publish the final live-deployment documentation and deliver the verified repository, frontend, and backend URLs.
-- [ ] Diagnose and correct the deployed contact form’s invalid JSON body response.
-- [ ] Add an accessible backend wake-up loading state for external API submissions.
-- [ ] Test contact submission payload handling, failure recovery, and loading behavior.
-- [ ] Publish and verify the contact-form resiliency fixes on GitHub Pages and Render.
+- [x] Diagnose and correct the deployed contact form’s invalid JSON body response.
+- [x] Add an accessible backend wake-up loading state for external API submissions.
+- [x] Test contact submission payload handling, failure recovery, and loading behavior.
+- [x] Publish and verify the contact-form resiliency fixes on GitHub Pages and Render.
+- [x] Extend the backend wake-up status treatment to the external newsletter submission flow.
+- [x] Exercise the delayed and timeout external-submission behavior without creating production test records.
+- [x] Verify a full valid contact submission through a production-equivalent API path and record the result.
+- [x] Verify the timer-driven contact and newsletter wake-up status visibility and reset behavior with mocked delayed requests.
+- [x] Verify a full valid contact request through the routed API contract without creating a production inquiry record.

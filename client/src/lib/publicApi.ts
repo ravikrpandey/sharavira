@@ -3,8 +3,12 @@ type ApiFailure = {
   error?: { code?: string };
 };
 
-const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
 const EXTERNAL_API_TIMEOUT_MS = 75_000;
+export const EXTERNAL_API_WAKE_UP_DELAY_MS = 900;
+
+function getApiBaseUrl() {
+  return (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
+}
 
 export type ContactFormPayload = {
   firstName: string;
@@ -21,6 +25,14 @@ export type PortableContactPayload = Omit<ContactFormPayload, "consent"> & {
   marketingConsent: boolean;
 };
 
+export function scheduleExternalApiWakeUp(onWakeUp: () => void) {
+  return globalThis.setTimeout(onWakeUp, EXTERNAL_API_WAKE_UP_DELAY_MS);
+}
+
+export function cancelExternalApiWakeUp(timer: ReturnType<typeof globalThis.setTimeout>) {
+  globalThis.clearTimeout(timer);
+}
+
 export function createPortableContactPayload(form: ContactFormPayload): PortableContactPayload {
   return {
     firstName: form.firstName.trim(),
@@ -35,16 +47,17 @@ export function createPortableContactPayload(form: ContactFormPayload): Portable
 }
 
 export function hasExternalPublicApi() {
-  return Boolean(apiBaseUrl);
+  return Boolean(getApiBaseUrl());
 }
 
 export async function postToPublicApi(path: string, payload: unknown, idempotencyKey: string) {
+  const apiBaseUrl = getApiBaseUrl();
   if (!apiBaseUrl) {
     throw new Error("The form service is not configured for this static deployment.");
   }
 
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), EXTERNAL_API_TIMEOUT_MS);
+  const timeout = globalThis.setTimeout(() => controller.abort(), EXTERNAL_API_TIMEOUT_MS);
   try {
     const response = await fetch(`${apiBaseUrl}${path}`, {
       method: "POST",
@@ -68,6 +81,6 @@ export async function postToPublicApi(path: string, payload: unknown, idempotenc
     }
     throw error;
   } finally {
-    window.clearTimeout(timeout);
+    globalThis.clearTimeout(timeout);
   }
 }

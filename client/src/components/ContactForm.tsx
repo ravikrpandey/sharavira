@@ -1,8 +1,8 @@
-import { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
 import { contactReasons } from "@/data/site";
 import { validateContact } from "@/lib/forms";
-import { createPortableContactPayload, hasExternalPublicApi, postToPublicApi } from "@/lib/publicApi";
+import { cancelExternalApiWakeUp, createPortableContactPayload, hasExternalPublicApi, postToPublicApi, scheduleExternalApiWakeUp } from "@/lib/publicApi";
 import { trpc } from "@/lib/trpc";
 import styles from "@/styles/Site.module.css";
 
@@ -29,7 +29,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     setError(""); setStatus("sending"); setWaitingForBackend(false);
     const duplicateKey = `ascend-contact-${form.email.toLowerCase()}-${form.reason}`;
     if (window.sessionStorage.getItem(duplicateKey)) { setError("We already received this inquiry in this session. We will be in touch shortly."); setStatus("error"); return; }
-    const wakeUpTimer = window.setTimeout(() => setWaitingForBackend(true), 900);
+    const wakeUpTimer = scheduleExternalApiWakeUp(() => setWaitingForBackend(true));
     try {
       const payload = createPortableContactPayload(form);
       if (hasExternalPublicApi()) {
@@ -41,7 +41,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     } catch (mutationError) {
       setError(mutationError instanceof Error ? mutationError.message : "We could not send your inquiry. Please try again."); setStatus("error");
     } finally {
-      window.clearTimeout(wakeUpTimer);
+      cancelExternalApiWakeUp(wakeUpTimer);
       setWaitingForBackend(false);
     }
   };
