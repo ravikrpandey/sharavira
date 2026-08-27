@@ -1,4 +1,4 @@
-# Ascend Collective Public Site Recreation
+# Sharavira Technology Public Site
 
 This repository contains an independently authored, enterprise-style public website recreation inspired by the information architecture and interaction vocabulary of a modern AI consultancy website. It does not copy the reference website’s source code, proprietary client logos, visual assets, third-party awards, long-form copy, or embedded services.
 
@@ -8,7 +8,7 @@ The interactive application uses React, Vite, React Router and CSS Modules. The 
 
 ## Published Front End
 
-The stack-organized source repository is available at [ravikrpandey/publicis-sapient-recreation](https://github.com/ravikrpandey/publicis-sapient-recreation). The static React application is live on [GitHub Pages](https://ravikrpandey.github.io/publicis-sapient-recreation/), and the Go/PostgreSQL API is live on [Render](https://ascend-collective-api.onrender.com/healthz). The GitHub Pages build is configured to route published contact and newsletter requests to the Render API; see [`docs/github-pages-render.md`](docs/github-pages-render.md) for topology, verification, and free-tier operational notes.
+The stack-organized source repository is available at [ravikrpandey/sharavira](https://github.com/ravikrpandey/sharavira). The static React application is published on [GitHub Pages](https://ravikrpandey.github.io/sharavira/), and the Go/PostgreSQL API is live on [Render](https://ascend-collective-api.onrender.com/healthz). The GitHub Pages build is configured to route published contact and newsletter requests to the Render API; see [`docs/github-pages-render.md`](docs/github-pages-render.md) for topology, verification, and free-tier operational notes.
 
 ## Local development
 

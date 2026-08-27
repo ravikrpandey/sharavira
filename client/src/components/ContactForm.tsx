@@ -29,7 +29,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       return;
     }
     setError(""); setStatus("sending"); setWaitingForBackend(false);
-    const duplicateKey = `ascend-contact-${form.email.toLowerCase()}-${form.reason}`;
+    const duplicateKey = `sharavira-contact-${form.email.toLowerCase()}-${form.reason}`;
     if (window.sessionStorage.getItem(duplicateKey)) { setError("We already received this inquiry in this session. We will be in touch shortly."); setStatus("error"); return; }
     const wakeUpTimer = scheduleExternalApiWakeUp(() => setWaitingForBackend(true));
     try {

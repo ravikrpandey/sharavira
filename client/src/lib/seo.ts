@@ -7,7 +7,7 @@ function ensureMeta(attribute: "name" | "property", value: string) {
 }
 
 export function applyPageMeta({ title, description, path }: PageMeta) {
-  const fullTitle = `${title} | Ascend Collective`;
+  const fullTitle = `${title} | Sharavira Technology`;
   const canonicalURL = new URL(path ?? window.location.pathname, window.location.origin).toString();
   document.title = fullTitle;
   ensureMeta("name", "description").content = description;

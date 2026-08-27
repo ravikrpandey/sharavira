@@ -154,7 +154,7 @@ const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(
 const githubPagesBuild = process.env.VITE_GITHUB_PAGES === "true";
 
 export default defineConfig({
-  base: githubPagesBuild ? (process.env.VITE_GITHUB_PAGES_BASE ?? "/publicis-sapient-recreation/") : "/",
+  base: githubPagesBuild ? (process.env.VITE_GITHUB_PAGES_BASE ?? "/sharavira/") : "/",
   plugins,
   resolve: {
     alias: {

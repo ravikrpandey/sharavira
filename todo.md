@@ -70,6 +70,11 @@
 - [x] Test the corrected production contact persistence path with the user-approved labeled verification inquiry.
 - [x] Publish and verify the production contact reliability fix.
 - [x] Restore visible, readable confirmation copy in the contact success card.
-- [ ] Verify the contact success card text contrast on desktop and mobile.
-- [ ] Publish and verify the success-card readability fix.
-- [ ] Add rendered success-state coverage for the contact-page style cascade.
+- [x] Verify the contact success card text contrast in its rendered success state on desktop and mobile.
+- [x] Verify the published live success-card style in the deployed Pages asset after a successful submission state.
+- [x] Add rendered success-state coverage for the contact-page style cascade.
+- [x] Make each footer navigation link open its related page at the top, including on mobile.
+- [x] Remove the Careers footer link and all related footer copy.
+- [x] Replace the Ascend Collective brand with Sharavira Technology throughout the public frontend.
+- [ ] Rename the GitHub repository to sharavira and align the GitHub Pages build base URL.
+- [ ] Verify mobile footer navigation, responsive branding, and the production build after the rename.
