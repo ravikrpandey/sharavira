@@ -35,7 +35,7 @@ type smtpInquiryNotifier struct {
 }
 
 func NewSMTPInquiryNotifier(host, port, username, password, from, recipient string) InquiryNotifier {
-	if strings.TrimSpace(host) == "" || strings.TrimSpace(port) == "" || strings.TrimSpace(username) == "" || strings.TrimSpace(password) == "" || strings.TrimSpace(from) == "" || strings.TrimSpace(recipient) == "" {
+	if strings.TrimSpace(host) == "" || strings.TrimSpace(port) == "" || strings.TrimSpace(username) == "" || strings.TrimSpace(password) == "" || strings.TrimSpace(recipient) == "" {
 		return noopInquiryNotifier{}
 	}
 	return &smtpInquiryNotifier{
@@ -48,16 +48,16 @@ func (n *smtpInquiryNotifier) NotifyInquiry(ctx context.Context, inquiry model.C
 	if err := ctx.Err(); err != nil {
 		return err
 	}
-	sender, err := mail.ParseAddress(n.from)
+	sender, err := resolveSender(n.from, n.username)
 	if err != nil {
-		return fmt.Errorf("parse inquiry sender: %w", err)
+		return err
 	}
 	recipient, err := mail.ParseAddress(n.recipient)
 	if err != nil {
 		return fmt.Errorf("parse inquiry recipient: %w", err)
 	}
 
-	message, err := smtpMessage(n.from, recipient.String(), inquiry)
+	message, err := smtpMessage(sender.String(), recipient.String(), inquiry)
 	if err != nil {
 		return err
 	}
@@ -66,6 +66,17 @@ func (n *smtpInquiryNotifier) NotifyInquiry(ctx context.Context, inquiry model.C
 		return fmt.Errorf("send inquiry notification: %w", err)
 	}
 	return nil
+}
+
+func resolveSender(from, username string) (*mail.Address, error) {
+	if sender, err := mail.ParseAddress(strings.TrimSpace(from)); err == nil && sender.Address != "" {
+		return sender, nil
+	}
+	usernameAddress, err := mail.ParseAddress(strings.TrimSpace(username))
+	if err != nil {
+		return nil, fmt.Errorf("parse SMTP username as fallback sender: %w", err)
+	}
+	return &mail.Address{Name: "Sharavira Technology", Address: usernameAddress.Address}, nil
 }
 
 func smtpMessage(from, recipient string, inquiry model.ContactSubmission) ([]byte, error) {
