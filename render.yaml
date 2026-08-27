@@ -16,6 +16,16 @@ services:
           property: connectionString
       - key: CORS_ORIGIN
         value: https://ravikrpandey.github.io
+      - key: GMAIL_CLIENT_ID
+        sync: false
+      - key: GMAIL_CLIENT_SECRET
+        sync: false
+      - key: GMAIL_REFRESH_TOKEN
+        sync: false
+      - key: INQUIRY_EMAIL_FROM
+        sync: false
+      - key: INQUIRY_NOTIFICATION_TO
+        sync: false
 
 databases:
   - name: ascend-collective-db
