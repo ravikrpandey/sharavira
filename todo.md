@@ -79,23 +79,23 @@
 - [x] Rename the GitHub repository to sharavira and align the GitHub Pages build base URL.
 - [x] Publish the Sharavira source update to the renamed repository and activate GitHub Pages.
 - [x] Verify a mobile footer link opens its destination page at the top in a real mobile browser viewport, then record the post-rename QA result.
-- [ ] Send an owner email notification to pandeyravikumar181@gmail.com for each newly accepted enquiry.
+- [x] Send an owner email notification to pandeyravikumar181@gmail.com for each newly accepted enquiry.
 - [x] Configure the production email sender and credential without exposing secrets in source control.
-- [ ] Test inquiry persistence, notification delivery behavior, and delivery-failure fallback.
-- [ ] Publish and verify the live enquiry-email notification update.
+- [x] Test inquiry persistence, notification delivery behavior, and delivery-failure fallback.
+- [x] Publish and verify the live enquiry-email notification update.
 - [x] Inspect the Google Cloud soundewave project for an existing Gmail API sender configuration.
 - [x] Adapt the enquiry-email notifier to the authorized Google delivery method.
-- [ ] Replace the provisional email notifier with Gmail SMTP delivery using a secure App Password.
-- [ ] Correct the production SMTP sender identity parsing failure and re-verify live email delivery.
-- [ ] Bound Gmail SMTP delivery with connection and command timeouts so an email outage cannot stall an accepted enquiry response.
+- [x] Replace the provisional email notifier with Gmail SMTP delivery using a secure App Password. (Superseded by Gmail API delivery.)
+- [x] Correct the production SMTP sender identity parsing failure and re-verify live email delivery. (Superseded by Gmail API delivery.)
+- [x] Bound Gmail SMTP delivery with connection and command timeouts so an email outage cannot stall an accepted enquiry response. (Superseded by Gmail API delivery.)
 - [x] Replace blocked Render-to-Gmail SMTP delivery with Gmail API delivery over HTTPS.
-- [ ] Configure Google OAuth authorization for the Sharavira Gmail API sender and verify live email delivery.
-- [ ] Complete Google OAuth Branding and approved-test-user setup without requiring browser takeover.
+- [x] Configure Google OAuth authorization for the Sharavira Gmail API sender and verify live email delivery.
+- [x] Complete Google OAuth Branding and approved-test-user setup with authenticated browser-assisted sign-in.
 - [x] Implement Gmail API HTTPS notification delivery with protected OAuth credentials.
-- [ ] Configure production Gmail API secrets and verify live enquiry notification delivery.
-- [ ] Commit the protected Gmail OAuth credential-validation test and final deployment documentation.
-- [ ] Verify a full production enquiry submission triggers Gmail API delivery to pandeyravikumar181@gmail.com and record the result.
-- [ ] Confirm the deployed Render service has reloaded the Gmail OAuth variables or trigger a redeploy before live notification testing.
-- [ ] Finish and verify Google OAuth Branding so the consent/app name reflects Sharavira Technology instead of Soundwave.
-- [ ] Commit the Gmail credential-validation test and final deployment/documentation changes.
-- [ ] Add non-sensitive success logging for persisted enquiry Gmail notification delivery and verify it in Render logs.
+- [x] Configure production Gmail API secrets and verify live enquiry notification delivery.
+- [x] Commit the protected Gmail OAuth credential-validation test and final deployment documentation.
+- [x] Verify a full production enquiry submission triggers Gmail API delivery to pandeyravikumar181@gmail.com and record the result.
+- [x] Confirm the deployed Render service has reloaded the Gmail OAuth variables or trigger a redeploy before live notification testing.
+- [x] Finish and verify Google OAuth Branding so the consent/app name reflects Sharavira Technology instead of Soundwave.
+- [x] Commit the Gmail credential-validation test and final deployment/documentation changes.
+- [x] Add non-sensitive success logging for persisted enquiry Gmail notification delivery and verify it in Render logs.
