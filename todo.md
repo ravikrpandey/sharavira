@@ -80,7 +80,7 @@
 - [x] Publish the Sharavira source update to the renamed repository and activate GitHub Pages.
 - [x] Verify a mobile footer link opens its destination page at the top in a real mobile browser viewport, then record the post-rename QA result.
 - [ ] Send an owner email notification to pandeyravikumar181@gmail.com for each newly accepted enquiry.
-- [ ] Configure the production email sender and credential without exposing secrets in source control.
+- [x] Configure the production email sender and credential without exposing secrets in source control.
 - [ ] Test inquiry persistence, notification delivery behavior, and delivery-failure fallback.
 - [ ] Publish and verify the live enquiry-email notification update.
 - [x] Inspect the Google Cloud soundewave project for an existing Gmail API sender configuration.
@@ -93,3 +93,9 @@
 - [ ] Complete Google OAuth Branding and approved-test-user setup without requiring browser takeover.
 - [x] Implement Gmail API HTTPS notification delivery with protected OAuth credentials.
 - [ ] Configure production Gmail API secrets and verify live enquiry notification delivery.
+- [ ] Commit the protected Gmail OAuth credential-validation test and final deployment documentation.
+- [ ] Verify a full production enquiry submission triggers Gmail API delivery to pandeyravikumar181@gmail.com and record the result.
+- [ ] Confirm the deployed Render service has reloaded the Gmail OAuth variables or trigger a redeploy before live notification testing.
+- [ ] Finish and verify Google OAuth Branding so the consent/app name reflects Sharavira Technology instead of Soundwave.
+- [ ] Commit the Gmail credential-validation test and final deployment/documentation changes.
+- [ ] Add non-sensitive success logging for persisted enquiry Gmail notification delivery and verify it in Render logs.
