@@ -51,6 +51,8 @@ func (s *Service) SubmitContact(ctx context.Context, v model.ContactSubmission, 
 	defer cancel()
 	if err := s.notifier.NotifyInquiry(notificationCtx, v, key); err != nil {
 		log.Printf("inquiry email notification failed after contact persistence: %v", err)
+	} else {
+		log.Printf("inquiry email notification sent after contact persistence")
 	}
 	return nil
 }
